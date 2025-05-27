@@ -1,0 +1,1 @@
+# Product Context\n\n## Product Overview\nv1-vize is a Next.js-based web application using React 19, TypeScript, and Tailwind CSS.\n\n## Target Users\n- Not specified yet\n\n## Key Features\n- Not specified yet\n\n## User Flows\n- Not specified yet

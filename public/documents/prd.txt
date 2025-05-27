@@ -1,0 +1,213 @@
+# Schengen Visa Application SaaS - Product Requirements Document
+
+## Overview
+VisaEase is a SaaS platform designed to simplify the Schengen visa application process for Turkish citizens. It addresses the pain point of dealing with expensive visa agencies (which charge around 200 euros) by providing an affordable digital alternative. The platform helps users prepare their visa application documents, particularly focusing on automatically filling out the Schengen visa application form and generating supporting documents like letters of intent. This service aims to make the visa application process more accessible, affordable, and less stressful.
+
+## Core Features
+
+### 1. Automated Application Form Filling
+- **What**: A system that takes user input and automatically fills out the official Schengen visa application form (PDF/Word document).
+- **Why**: This eliminates the tedious and error-prone process of manually filling forms, which is one of the main reasons people use expensive agencies.
+- **How**: Users enter their personal details through a user-friendly multi-step form interface, and the system populates the official application form with this information using client-side PDF processing.
+
+### 2. AI-Generated Letter of Intent (Future Feature)
+- **What**: An AI tool that helps users draft personalized letters of intent based on their travel purpose and personal circumstances.
+- **Why**: Letters of intent are critical for visa approval but difficult to write properly, especially for non-native speakers.
+- **How**: The system will use AI to analyze the user's travel plans and generate an appropriate letter that meets visa requirements.
+
+### 3. Document Checklist and Guidance
+- **What**: A personalized checklist of required documents based on the user's specific situation and target country.
+- **Why**: Ensures users don't miss any required documents, increasing their chances of visa approval.
+- **How**: Based on user input about their destination, purpose of travel, and personal circumstances, the system generates a tailored document checklist.
+
+### 4. Document Download and Export
+- **What**: Ability to download completed forms and documents in PDF format.
+- **Why**: Users need physical copies to submit to VFS Global.
+- **How**: The system will render final documents in downloadable formats that can be printed.
+
+## User Experience
+
+### User Personas
+1. **First-time Traveler**: Individuals with no previous experience applying for Schengen visas who need comprehensive guidance.
+2. **Frequent Traveler**: Users who have applied before but want to save time and money on the process.
+3. **Family Applicants**: Users applying for multiple family members who need to manage several applications simultaneously.
+
+### Key User Flows
+1. **Registration/Login**: Simple account creation to save progress and manage applications.
+2. **Data Collection**: Step-by-step form with route-based navigation to collect all necessary personal information.
+3. **Document Generation**: Automatic filling of the application form based on collected data.
+4. **Review and Edit**: Ability to review and modify generated documents.
+5. **Payment**: One-time payment processing via Lemon Squeezy.
+6. **Download and Print**: Export completed documents for submission.
+
+### UI/UX Considerations
+- Clean, modern interface using Shadcn/UI components
+- Multi-step wizard with progress indicators showing completion status
+- Route-based navigation allowing users to bookmark progress and use browser back/forward buttons
+- Form state persistence to prevent data loss
+- Mobile-friendly design for users completing forms on various devices
+- Initially in Turkish language, with English support planned for future updates
+- Clear instructions and tooltips to help users understand requirements
+
+## Technical Architecture
+
+### System Components
+1. **Frontend Application**: React-based web application using Next.js for server-side rendering and optimal performance.
+2. **Form State Management**: Zustand for managing form state across steps with persistence.
+3. **Form Validation**: Zod for schema validation and type safety.
+4. **PDF Processing Service**: Client-side PDF manipulation using pdf-lib.
+5. **User Authentication System**: Secure login and data protection.
+6. **Payment Integration**: Lemon Squeezy for payment processing and merchant of record services.
+7. **AI Service** (future): Integration with language models for generating letters of intent.
+
+### Data Models
+1. **User**: Basic account information and authentication details.
+2. **Application**: Stores application data, status, and related documents.
+3. **Document**: Metadata about generated documents and their status.
+4. **Country Requirements**: Database of specific requirements for each Schengen country.
+
+### APIs and Integrations
+1. **PDF Manipulation**: Client-side processing with pdf-lib.
+2. **Payment Gateway**: Lemon Squeezy for processing one-time payments.
+3. **AI/NLP Service** (future): For generating personalized letters of intent.
+
+### Infrastructure Requirements
+1. **Web Hosting**: Cloud-based hosting for the web application.
+2. **Database**: Secure storage for user account data (not storing sensitive application data).
+3. **File Storage**: CDN for PDF templates in production, local storage for development.
+4. **SSL Certificate**: For secure data transmission.
+
+## Development Roadmap
+
+### MVP (Phase 1)
+1. **Project Setup & Foundation**
+   - Initialize Next.js project with TypeScript
+   - Set up Shadcn/UI components
+   - Configure Zustand and Zod
+   - Create basic routing structure
+
+2. **User Authentication**
+   - Basic account creation and authentication
+   - Profile information storage
+
+3. **Multi-Step Form Implementation**
+   - Create form steps with route-based navigation
+   - Implement form state persistence
+   - Add validation with Zod schemas
+
+4. **PDF Processing**
+   - Create field mapping configuration
+   - Implement PDF filling with pdf-lib
+   - Add download capability
+
+5. **Payment Integration**
+   - Integrate Lemon Squeezy for one-time payments
+
+### Phase 2
+1. **Enhanced Document Management**
+   - Save and resume application progress
+   - Multiple application management
+
+2. **Country-Specific Requirements**
+   - Detailed requirements for each Schengen country
+   - Customized checklists based on destination
+
+3. **User Experience Improvements**
+   - Improved form validation and error handling
+   - Enhanced mobile responsiveness
+   - Performance optimizations
+
+### Phase 3
+1. **AI-Powered Letter of Intent Generator**
+   - Integration with language models
+   - Personalized letter generation based on travel purpose
+
+2. **Advanced Analytics**
+   - Success rate tracking
+   - User behavior analysis for product improvement
+
+3. **Multi-language Support**
+   - Add English language interface
+
+## Logical Dependency Chain
+1. **Foundation (Must complete first)**
+   - Next.js project setup with TypeScript
+   - Shadcn/UI component integration
+   - Zustand store configuration
+   - Basic routing structure
+
+2. **Core Functionality**
+   - Multi-step form implementation
+   - PDF field mapping and processing
+   - Form validation with Zod
+   - Document generation and download
+
+3. **Enhanced Features**
+   - User authentication
+   - Payment processing with Lemon Squeezy
+   - Document checklist customization
+
+4. **Advanced Features**
+   - AI-powered document generation
+   - Analytics and reporting
+
+## Risks and Mitigations
+
+### Technical Challenges
+- **Risk**: PDF form field identification and manipulation complexity.
+  **Mitigation**: Create structured field mapping configuration; test early with the actual PDF template; have fallback options like creating our own fillable template if needed.
+
+- **Risk**: Security concerns with sensitive user data.
+  **Mitigation**: Process PDFs client-side; avoid storing sensitive application data; implement strong encryption for user accounts.
+
+### Business Challenges
+- **Risk**: Changes in visa application requirements.
+  **Mitigation**: Design field mapping system for easy updates; monitor official requirements regularly.
+
+- **Risk**: Competition from established agencies.
+  **Mitigation**: Focus on competitive pricing (19-49 euros vs 200 euros) and superior user experience; highlight cost savings.
+
+### Resource Constraints
+- **Risk**: Limited development resources for all planned features.
+  **Mitigation**: Focus on core PDF filling functionality first; use modular design for easier feature addition.
+
+## Appendix
+
+### Technical Specifications
+- **Frontend**: Next.js 15+, React 19+, TypeScript
+- **UI Components**: Shadcn/UI
+- **State Management**: Zustand
+- **Form Validation**: Zod
+- **PDF Processing**: pdf-lib
+- **Payment Processing**: Lemon Squeezy
+- **Folder Structure**:
+  ```
+  /app
+    /page.tsx                  # Landing page
+    /(auth)                    # Authentication routes
+    /(dashboard)               # Protected routes
+      /form                    # Form wizard routes
+        /[step]/page.tsx       # Dynamic step pages
+    /api                       # API routes
+  
+  /components
+    /ui                        # Shadcn UI components
+    /form                      # Form-specific components
+      /steps                   # Step-specific form components
+    /layout                    # Layout components
+    /pdf                       # PDF-related components
+  
+  /lib
+    /store                     # Zustand store
+    /validation                # Zod schemas
+    /pdf                       # PDF utilities
+    /utils                     # Utility functions
+  
+  /public
+    /templates                 # PDF templates
+  ```
+
+### Market Research
+- Average visa agency cost in Turkey: ~200 euros
+- Target pricing: 19-49 euros (90% cost reduction)
+- Potential market: All Turkish citizens applying for Schengen visas (hundreds of thousands annually) 
